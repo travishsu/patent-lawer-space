@@ -13,6 +13,50 @@ This repository provides a structured environment for conducting patent-related 
 - Invention disclosure management
 - Claims analysis and drafting
 
+## Patent Workflow Overview
+
+```mermaid
+flowchart TD
+    Start([New Invention Idea]) --> Disclosure[Fill Invention Disclosure<br/>templates/analysis/invention-disclosure.md]
+    Disclosure --> PriorArt[Conduct Prior Art Search<br/>Use /prior-art command or prior-art-search.py]
+    PriorArt --> Analyze[Analyze Patentability<br/>§101, §102, §103, §112]
+
+    Analyze --> Decision{Worth<br/>Patenting?}
+    Decision -->|No| Stop([Stop or Modify Invention])
+    Decision -->|Yes| Claims[Draft Claims<br/>Start with independent claims]
+
+    Claims --> ClaimsCheck[Analyze Claims<br/>claim-analyzer.py or MCP tool]
+    ClaimsCheck --> ClaimsOK{Claims<br/>Valid?}
+    ClaimsOK -->|Issues Found| Claims
+    ClaimsOK -->|OK| Spec[Draft Specification<br/>Use templates/applications/]
+
+    Spec --> Abstract[Write Abstract<br/>≤150 words]
+    Abstract --> WordCheck[Check Word Count<br/>word-count.py or MCP tool]
+    WordCheck --> Review[Review Complete Application]
+
+    Review --> File[File Patent Application]
+
+    style Start fill:#e1f5e1
+    style Stop fill:#ffe1e1
+    style File fill:#e1f0ff
+    style Decision fill:#fff4e1
+    style ClaimsOK fill:#fff4e1
+```
+
+### Alternative Workflows
+
+```mermaid
+flowchart LR
+    A[Product Launch] --> B[Freedom to Operate Analysis<br/>templates/analysis/freedom-to-operate.md]
+    B --> C{Infringement<br/>Risk?}
+    C -->|High| D[Design Around or License]
+    C -->|Low| E[Proceed with Launch]
+
+    style A fill:#e1f5e1
+    style E fill:#e1f0ff
+    style D fill:#fff4e1
+```
+
 ## Directory Structure
 
 ```
@@ -242,56 +286,66 @@ Features:
 
 ## Quick Start Guide
 
-### 1. Start a New Patent Application
+### For Newcomers: 3 Easy Steps
 
+**Step 1: Start with a simple invention**
 ```bash
-# Create a new draft from template
-cp templates/applications/utility-patent-template.md patents/drafts/my-invention.md
-
-# Edit the file with your invention details
+# Ask Claude to help you draft a patent
+"I have an invention for [describe your invention].
+Help me create a patent application using the utility patent template."
 ```
 
-### 2. Draft Claims
-
+**Step 2: Use slash commands for guidance**
 ```bash
-# Create claims document
-cp templates/claims/claims-template.md patents/drafts/my-invention-claims.md
-
-# Analyze your claims
-cd tools
-python claim-analyzer.py ../patents/drafts/my-invention-claims.md
+/draft-patent      # Start a new patent application
+/prior-art         # Search for prior art
+/analyze-claims    # Check your claims for issues
 ```
 
-### 3. Conduct Prior Art Search
+**Step 3: Let Claude guide you through the process**
+- Claude will ask questions about your invention
+- Follow the workflow diagram above
+- Use the tools to validate your work
 
+### For Advanced Users: Direct Tool Usage
+
+**Option A: Use MCP Tools (Recommended for Claude Desktop)**
+- Tools are automatically available in Claude Desktop
+- Just ask Claude to analyze claims, check word count, or generate search queries
+- See [mcp-server/README.md](mcp-server/README.md) for setup
+
+**Option B: Use Python Tools Directly**
 ```bash
-# Generate search strategy
-cd tools
-python prior-art-search.py ../patents/drafts/my-invention.md
+# Analyze patent claims
+python tools/claim-analyzer.py patents/drafts/my-claims.md
 
-# Document findings
-cp templates/analysis/prior-art-analysis.md patents/analysis/my-invention-prior-art.md
+# Check word count (abstracts must be ≤150 words)
+python tools/word-count.py patents/drafts/my-abstract.md
+
+# Generate prior art search queries
+python tools/prior-art-search.py patents/drafts/my-invention.md
 ```
 
-### 4. Analyze Patentability
+### Example: Complete Patent Workflow
 
-```bash
-# Create patentability analysis
-cp templates/analysis/patentability-analysis.md patents/analysis/my-invention-patentability.md
+**Starting a new patent application:**
+```
+You: "I need to patent a new smartphone battery design that uses
+graphene electrodes. Can you help me draft the application?"
 
-# Fill out the analysis based on prior art findings
+Claude: "I'll guide you through the patent workflow:
+1. First, let me gather details about your invention...
+2. Conduct a prior art search on graphene battery technologies...
+3. Draft independent and dependent claims...
+4. Create the specification with multiple embodiments...
+5. Validate everything with the analysis tools..."
 ```
 
-### 5. Write Abstract
-
+**For H01L semiconductor patents:**
 ```bash
-# Create abstract
-cp templates/abstracts/abstract-template.md patents/drafts/my-invention-abstract.md
-
-# Check word count
-cd tools
-python word-count.py ../patents/drafts/my-invention-abstract.md
+/h01l-draft    # Specialized workflow for semiconductor devices
 ```
+This command provides semiconductor-specific guidance for transistors, memory, LEDs, packaging, etc.
 
 ## Best Practices
 
@@ -332,45 +386,40 @@ python word-count.py ../patents/drafts/my-invention-abstract.md
 
 ## Working with Claude Code
 
-This environment is optimized for use with Claude Code. Here are some effective prompts:
+This environment is optimized for use with Claude Code. Simply describe what you need in natural language:
 
-### Drafting
-
+**Drafting:**
 ```
-"Help me draft a patent application for [invention description].
-Use the utility-patent-template.md as the starting point."
+"Help me draft a patent application for [your invention idea]"
 ```
 
-### Analysis
-
+**Analysis:**
 ```
-"Analyze the patentability of my invention in patents/drafts/my-invention.md.
-Consider the prior art I've documented in patents/analysis/prior-art-findings.md."
+"Analyze the patentability of my invention - check for prior art issues"
 ```
 
-### Claims
-
+**Claims:**
 ```
-"Draft patent claims for my invention. Create at least 3 independent claims
-covering apparatus, method, and computer-readable medium, plus dependent claims."
+"Draft independent and dependent claims for my invention"
 ```
 
-### Prior Art Search
-
+**Prior Art Search:**
 ```
-"Help me find prior art for [invention]. Generate search queries and
-search USPTO, Google Patents, and recommend academic sources."
+"Search for prior art related to [technology area]"
 ```
 
-### Review
+**Review:**
+```
+"Review my claims for antecedent basis and structural issues"
+```
 
-```
-"Review my patent claims in patents/drafts/my-claims.md. Check for:
-- Antecedent basis issues
-- Claim differentiation
-- Proper structure
-- Potential invalidity issues"
-```
+**Use Slash Commands for specialized workflows:**
+- `/draft-patent` - Complete patent drafting workflow
+- `/prior-art` - Comprehensive prior art search
+- `/patentability` - Full patentability analysis (§101, §102, §103, §112)
+- `/analyze-claims` - Claims structure and validity check
+- `/fto` - Freedom to operate analysis
+- `/h01l-draft` - Semiconductor device patent drafting
 
 ## Patent Law Fundamentals
 
@@ -410,39 +459,42 @@ search USPTO, Google Patents, and recommend academic sources."
 
 ## Common Workflows
 
+See the **Mermaid diagrams** at the top of this document for visual workflow guidance.
+
 ### New Invention Workflow
 
-1. Fill out invention disclosure form
-2. Conduct preliminary prior art search
+**Quick Version:** Invention Disclosure → Prior Art Search → Draft Claims → Draft Specification → Abstract → File
+
+**Detailed Steps:**
+1. Fill out invention disclosure (`/invention-disclosure`)
+2. Prior art search (`/prior-art`)
 3. Assess patentability
-4. Draft claims
-5. Draft specification
-6. Create abstract
-7. Prepare figures
-8. Review and refine
-9. File provisional or non-provisional application
+4. Draft claims (start broad, add dependencies)
+5. Draft specification (use templates)
+6. Create abstract (≤150 words)
+7. Review and file
 
 ### Prior Art Analysis Workflow
 
-1. Extract keywords from invention
-2. Generate search queries
-3. Search USPTO, Google Patents, academic databases
-4. Document each relevant reference
-5. Create claim charts
-6. Assess anticipation and obviousness risks
-7. Identify distinguishing features
-8. Update claims and specification
+**Quick Version:** Keywords → Search → Document → Analyze → Update Claims
+
+**Detailed Steps:**
+1. Extract keywords and generate queries (`prior-art-search.py`)
+2. Search USPTO, Google Patents, academic databases
+3. Document each relevant reference
+4. Create claim charts (element-by-element comparison)
+5. Update claims to distinguish from prior art
 
 ### FTO Analysis Workflow
 
-1. Identify product features
-2. Search for relevant patents
-3. Analyze each patent claim-by-claim
-4. Assess infringement risk
-5. Evaluate validity of high-risk patents
-6. Consider design-around options
-7. Assess licensing opportunities
-8. Develop risk mitigation strategy
+**Quick Version:** Product Features → Search Patents → Analyze Claims → Assess Risk → Mitigate
+
+**Detailed Steps:**
+1. List all product features
+2. Search for relevant patents (`/fto`)
+3. Map patent claims to product features
+4. Assess infringement and validity
+5. Develop mitigation strategy (design-around, licensing, etc.)
 
 ## Resources
 
