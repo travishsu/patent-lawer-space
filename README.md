@@ -42,12 +42,25 @@ patent-lawer-space/
   - Includes all required sections (Background, Summary, Detailed Description, Claims, Abstract)
   - Guidelines for each section
 
+- **`templates/applications/h01l-semiconductor-template.md`** ⭐ **NEW**
+  - Specialized template for H01L semiconductor device patents
+  - Comprehensive guide for transistors, memory, LEDs, power devices, sensors
+  - Layer-by-layer description framework with reference numbering conventions
+  - Process parameter templates and material specifications
+  - Multiple embodiment examples
+
 ### Claims Templates
 
 - **`templates/claims/claims-template.md`**
   - Independent and dependent claims structure
   - Claims drafting guidelines
   - Examples of different claim types (system, method, computer-readable medium)
+
+- **`templates/claims/h01l-claims-template.md`** ⭐ **NEW**
+  - H01L semiconductor device claims
+  - Device structure, process method, and specialized claim examples
+  - FinFET, memory, power device, and optoelectronic claim templates
+  - Semiconductor-specific claim language and best practices
 
 ### Analysis Templates
 
@@ -70,6 +83,77 @@ patent-lawer-space/
   - Invention disclosure form
   - Captures all necessary invention details
   - Prior art documentation
+
+## ⭐ H01L Semiconductor Device Support
+
+**NEW:** This repository now includes comprehensive support for H01L semiconductor patent work!
+
+### What is H01L?
+
+H01L covers semiconductor devices and electric solid-state devices including:
+- Transistors (MOSFET, FinFET, GAA, HEMT, etc.)
+- Memory devices (DRAM, NAND, Flash)
+- Power semiconductors (IGBT, LDMOS, SiC devices)
+- Optoelectronic devices (LEDs, laser diodes, solar cells)
+- Sensors and MEMS devices
+- Advanced packaging and assembly
+
+### Priority Company Focus
+
+H01L prior art searches prioritize these semiconductor industry leaders:
+1. **TSMC** - Advanced process nodes, 3D IC, packaging (CoWoS, InFO)
+2. **Samsung** - Memory (DRAM, NAND), logic, displays
+3. **Intel** - Processors, RibbonFET, Foveros, advanced packaging
+4. **ASE (Advanced Semiconductor Engineering)** - Packaging, assembly, FOWLP, SiP
+5. **Amkor Technology** - Advanced packaging, SWIFT, panel-level packaging
+
+### Quick Start for H01L
+
+**Command:**
+```
+/h01l-draft
+```
+
+This launches the H01L patent drafting assistant which will:
+- Guide you through semiconductor-specific information gathering
+- Create H01L-specific draft files
+- Recommend priority company prior art searches
+- Provide semiconductor claims drafting guidance
+- Generate targeted search queries
+
+### H01L Resources
+
+**Templates:**
+- `templates/applications/h01l-semiconductor-template.md` - Complete H01L application template
+- `templates/claims/h01l-claims-template.md` - Semiconductor claims examples
+
+**Guides:**
+- `docs/h01l-quick-start.md` - **START HERE** for H01L patent work
+- `docs/h01l-terminology-reference.md` - 300+ semiconductor terms with definitions
+- `docs/h01l-prior-art-search-guide.md` - Search strategies for priority companies
+
+### Why H01L Support Matters
+
+Semiconductor patents require:
+- **Specialized terminology** (gate dielectric, source/drain, doping concentration, etc.)
+- **Precise specifications** (dimensional ranges, process parameters, material properties)
+- **Thorough prior art searches** (TSMC, Samsung, Intel, ASE, Amkor dominate the field)
+- **Technical accuracy** (realistic process parameters, achievable dimensions)
+- **Proper structure** (layer-by-layer descriptions, systematic reference numbering)
+
+The H01L templates and guides ensure your semiconductor patents meet these requirements.
+
+### Example H01L Use Cases
+
+- Drafting FinFET or GAA transistor patents
+- Memory device patent applications (3D NAND, DRAM)
+- Advanced packaging patents (fan-out, TSV, SiP)
+- Power semiconductor patents (SiC, GaN devices)
+- LED and optoelectronic device patents
+- Prior art searching for semiconductor technologies
+- FTO analysis for chip products
+
+**Get Started:** Read `docs/h01l-quick-start.md` or run `/h01l-draft`
 
 ## Tools
 
