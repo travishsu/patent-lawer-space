@@ -1,0 +1,42 @@
+# Files to ignore in Claude Code context
+
+# Large binary files
+*.pdf
+*.docx
+*.xlsx
+*.pptx
+
+# Images (unless specifically needed)
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.svg
+
+# Archives
+*.zip
+*.tar.gz
+*.rar
+
+# Build artifacts
+build/
+dist/
+*.pyc
+__pycache__/
+
+# Temporary files
+*.tmp
+*.swp
+*.bak
+~*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Git
+.git/
+
+# Large data files
+*.csv
+*.json
