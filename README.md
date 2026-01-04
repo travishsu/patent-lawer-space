@@ -28,6 +28,7 @@ patent-lawer-space/
 │   ├── specifications/ # Detailed description templates
 │   └── analysis/       # Analysis templates
 ├── tools/              # Utility scripts
+├── mcp-server/         # Model Context Protocol server
 ├── docs/               # Documentation
 └── examples/           # Example documents
 ```
@@ -71,6 +72,45 @@ patent-lawer-space/
   - Prior art documentation
 
 ## Tools
+
+The repository includes both standalone Python tools and an MCP server that exposes these tools to Claude.
+
+### MCP Server (Recommended for Claude Desktop)
+
+The **Model Context Protocol (MCP) server** makes all patent analysis tools available directly to Claude through the MCP protocol. This is the recommended way to use the tools with Claude Desktop.
+
+**Quick Setup:**
+
+1. Install dependencies:
+   ```bash
+   cd mcp-server
+   pip install -r requirements.txt
+   ```
+
+2. Configure Claude Desktop (see `mcp-server/README.md` for details):
+   ```json
+   {
+     "mcpServers": {
+       "patent-tools": {
+         "command": "python",
+         "args": ["/absolute/path/to/patent-lawer-space/mcp-server/run.py"]
+       }
+     }
+   }
+   ```
+
+3. Restart Claude Desktop and the tools will be available automatically!
+
+**Available MCP Tools:**
+- `analyze_patent_word_count` - Word count and structure validation
+- `analyze_patent_claims` - Claims analysis with antecedent basis checking
+- `generate_prior_art_search` - Prior art search query generation
+
+See [mcp-server/README.md](mcp-server/README.md) for complete documentation.
+
+### Standalone Python Tools
+
+These tools can also be run directly from the command line:
 
 ### Word Count Tool
 
