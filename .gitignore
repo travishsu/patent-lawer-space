@@ -48,8 +48,10 @@ Thumbs.db
 .DS_Store
 
 # Patent working files (optional - remove if you want to track these)
-# patents/drafts/*
-# !patents/drafts/.gitkeep
+patents/drafts/*
+!patents/drafts/.gitkeep
+patents/analysis/*
+!patents/analysis/.gitkeep
 
 # Large binary files
 *.pdf
